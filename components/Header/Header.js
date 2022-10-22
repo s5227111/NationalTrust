@@ -4,13 +4,7 @@ const { View, Image, StyleSheet, Text } = require("react-native");
   /* Header component */
 }
 const Header = () => {
-  return (
-    <View style={styles.header}>
-      <View style={styles.centerLogo}>
-        <Image style={styles.logo} source={require("../assets/logo.png")} />
-      </View>
-    </View>
-  );
+  return <Image style={styles.logo} source={require("../assets/logo.png")} />;
 };
 
 const styles = StyleSheet.create({

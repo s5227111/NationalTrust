@@ -6,25 +6,20 @@ import Home from "./screens/Home";
 import Map from "./screens/Map";
 
 const Stack = createNativeStackNavigator();
+const header = {
+  headerTitle: (props) => (
+    <Image style={styles.logo} source={require("assets/logo.png")} />
+  ),
+  headerStyle: {
+    backgroundColor: "#22404c",
+  },
+};
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          options={{
-            title: "My National Trust App",
-            headerStyle: {
-              backgroundColor: "#f4511e",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-          }}
-          name="Home"
-          component={Home}
-        />
+        <Stack.Screen options={header} name="Home" component={Home} />
         <Stack.Screen name="Map" component={Map} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -36,6 +31,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+    justifyContent: "center",
+  },
+  logo: {
+    height: 50,
+    width: 150,
+  },
+  header: {
+    backgroundColor: "#22404c",
+    width: "100%",
+    justifyContent: "center",
+    height: 110,
+    paddingTop: 50,
+  },
+  centerLogo: {
+    flex: 1,
+    flexDirection: "row",
     justifyContent: "center",
   },
 });
