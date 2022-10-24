@@ -1,14 +1,15 @@
 /* Layout component */
 
-import Footer from "../Footer/Footer";
+import { View } from "react-native";
 import Header from "../Header/Header";
 
 const Layout = ({ children }) => {
   return (
-    <View style={styles.header}>
+    <View>
       <Header />
       {children}
-      <Footer />
     </View>
   );
 };
+
+export default Layout;

@@ -4,26 +4,26 @@ const { View, Image, StyleSheet, Text } = require("react-native");
   /* Header component */
 }
 const Header = () => {
-  return <Image style={styles.logo} source={require("../assets/logo.png")} />;
+  return (
+    <View style={styles.container}>
+      <Image style={styles.logo} source={require("../../assets/logo.png")} />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   logo: {
     height: 50,
     width: 150,
+    alignContent: "center",
   },
-  header: {
+  container: {
     backgroundColor: "#22404c",
-    width: "100%",
-    justifyContent: "center",
-    height: 110,
-    paddingTop: 50,
-  },
-
-  centerLogo: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    marginTop: 41,
+    paddingBottom: 10,
+    paddingTop: 10,
   },
 });
 
