@@ -18,7 +18,7 @@ const Home = ({ navigation }) => {
           .slice(0, 10)
           .map((place) => (
             <TouchableOpacity
-              onPress={() => navigation.navigate("Details", place)}
+              onPress={() => navigation.navigate("Details", { place })}
               key={place.id}
             >
               <Card title={place.title} descr={place.description}>
