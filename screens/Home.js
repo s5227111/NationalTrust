@@ -9,6 +9,7 @@ import {
 import Layout from "../components/Layout/Layout";
 import Card from "../components/Card/Card";
 import places from "../services/places";
+import { useState } from "react";
 
 const Home = ({ navigation }) => {
   return (

@@ -1,6 +1,7 @@
 import { Button, View, Text, Dimensions, StyleSheet } from "react-native";
 import Layout from "../components/Layout/Layout";
 import MapView, { Marker } from "react-native-maps";
+import places from "../services/places";
 
 export default function Map({ navigation }) {
   return (
@@ -14,11 +15,19 @@ export default function Map({ navigation }) {
         }}
         style={styles.map}
       >
-        <Marker
-          title="map title test"
-          description="map descr test"
-          coordinate={{ latitude: 50.719391, longitude: -1.98114 }}
-        />
+        {Object.values(places)
+          // .slice(0, 10)
+          .map((place) => (
+            <Marker
+              key={place.id}
+              title={place.title}
+              description={place.description}
+              coordinate={{
+                latitude: String(place.location.latitude),
+                longitude: String(place.location.longitude),
+              }}
+            />
+          ))}
       </MapView>
     </Layout>
   );
