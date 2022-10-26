@@ -1,38 +1,34 @@
-import { Button, View, Text, ScrollView, Image } from "react-native";
-import { Card } from "react-native-paper";
+import {
+  Button,
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import Layout from "../components/Layout/Layout";
+import Card from "../components/Card/Card";
+import places from "../services/places";
 
 const Home = ({ navigation }) => {
   return (
     <Layout>
       <ScrollView>
-        <View>
-          <Card title="Titulo" descr="Description">
-            <Image
-              style={{ width: "100%", height: 200 }}
-              source={{ uri: "https://picsum.photos/300/600?random=1" }}
-            />
-          </Card>
-        </View>
-
-        <View>
-          <View>
-            <Card title="Titulo" descr="Description">
-              <Image
-                style={{ width: "100%", height: 200 }}
-                source={{ uri: "https://picsum.photos/300/600?random=1" }}
-              />
-            </Card>
-          </View>
-          <View>
-            <Card title="Titulo" descr="Description">
-              <Image
-                style={{ width: "100%", height: 200 }}
-                source={{ uri: "https://picsum.photos/300/600?random=1" }}
-              />
-            </Card>
-          </View>
-        </View>
+        {Object.values(places)
+          .slice(0, 10)
+          .map((place) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Details", place)}
+              key={place.id}
+            >
+              <Card title={place.title} descr={place.description}>
+                <Image
+                  style={{ width: "100%", height: 200 }}
+                  source={{ uri: place.imageUrl }}
+                />
+              </Card>
+            </TouchableOpacity>
+          ))}
       </ScrollView>
     </Layout>
   );

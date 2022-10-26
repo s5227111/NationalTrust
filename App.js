@@ -4,11 +4,22 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home";
 import Map from "./screens/Map";
+import Details from "./screens/Details";
 import Header from "./components/Header/Header";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Tab = createMaterialBottomTabNavigator();
+const HomeStack = createNativeStackNavigator();
+
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="HomeScreen" component={Home} />
+      <HomeStack.Screen name="Details" component={Details} />
+    </HomeStack.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -27,7 +38,7 @@ export default function App() {
             ),
           }}
           name="Home"
-          component={Home}
+          component={HomeStackScreen}
         />
         <Tab.Screen
           options={{
