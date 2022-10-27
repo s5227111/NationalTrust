@@ -2,12 +2,15 @@ const { View, Image, StyleSheet, Text, Dimensions } = require("react-native");
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const Card = ({ children, title, descr }) => {
+const Card = ({ children, title, descr, tag }) => {
   return (
     <View style={styles.card}>
-      <View style={styles.milesContainer}>
-        <Text style={styles.milesText}>5 miles</Text>
-      </View>
+      {tag !== "NO" && (
+        <View style={styles.milesContainer}>
+          <Text style={styles.milesText}>5 miles</Text>
+        </View>
+      )}
+
       {children}
       <View style={styles.textBlock}>
         <Text style={styles.title}>{title}</Text>

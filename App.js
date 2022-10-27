@@ -8,6 +8,7 @@ import Details from "./screens/Details";
 import Header from "./components/Header/Header";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Company from "./screens/Company";
 
 const Tab = createMaterialBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -49,6 +50,16 @@ export default function App() {
           }}
           name="Map"
           component={Map}
+        />
+        <Tab.Screen
+          options={{
+            tabBarLabel: "Company",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="domain" color={color} size={26} />
+            ),
+          }}
+          name="Company"
+          component={Company}
         />
       </Tab.Navigator>
     </NavigationContainer>

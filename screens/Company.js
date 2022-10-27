@@ -8,23 +8,18 @@ import {
 } from "react-native";
 import Layout from "../components/Layout/Layout";
 import Card from "../components/Card/Card";
-import places from "../services/places";
+import companies from "../services/company";
 import { useState } from "react";
 
-const Home = ({ navigation }) => {
+const Company = ({ navigation }) => {
   const renderItem = ({ item }) => {
     return (
       // Container clickable, button nao permite elementos. Touchable...
       <TouchableOpacity
-        onPress={() => navigation.navigate("Details", { place: item })}
+        onPress={() => navigation.navigate("CompanyDetails", { company: item })}
         key={item.id}
       >
-        <Card title={item.title} descr={item.description}>
-          <Image
-            style={{ width: "100%", height: 200 }}
-            source={{ uri: item.imageUrl }}
-          />
-        </Card>
+        <Card title={item.name} descr="" tag="NO"></Card>
       </TouchableOpacity>
     );
   };
@@ -34,7 +29,7 @@ const Home = ({ navigation }) => {
       {/* ScrollView: sessoes diferentes q preciso scrollar, mais elementos q nao cabem na tela vs 
       FlatList has better performance for Lists (pagination) */}
       <FlatList
-        data={Object.values(places)}
+        data={Object.values(companies)}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
@@ -42,4 +37,4 @@ const Home = ({ navigation }) => {
   );
 };
 
-export default Home;
+export default Company;

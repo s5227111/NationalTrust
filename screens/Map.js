@@ -1,4 +1,11 @@
-import { Button, View, Text, Dimensions, StyleSheet } from "react-native";
+import {
+  Button,
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import Layout from "../components/Layout/Layout";
 import MapView, { Marker } from "react-native-maps";
 import places from "../services/places";
@@ -19,6 +26,7 @@ export default function Map({ navigation }) {
           // .slice(0, 10)
           .map((place) => (
             <Marker
+              onPress={() => navigation.navigate("Details", { place })}
               key={place.id}
               title={place.title}
               description={place.description}
