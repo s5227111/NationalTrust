@@ -5,6 +5,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home";
 import Map from "./screens/Map";
 import Details from "./screens/Details";
+import CompanyDetails from "./screens/CompanyDetails";
+import FilterScreen from "./screens/Filter";
 import Header from "./components/Header/Header";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -18,6 +20,7 @@ function HomeStackScreen() {
     <HomeStack.Navigator>
       <HomeStack.Screen name="HomeScreen" component={Home} />
       <HomeStack.Screen name="Details" component={Details} />
+      <HomeStack.Screen name="CompanyDetails" component={CompanyDetails} />
     </HomeStack.Navigator>
   );
 }
@@ -60,6 +63,16 @@ export default function App() {
           }}
           name="Company"
           component={Company}
+        />
+        <Tab.Screen
+          options={{
+            tabBarLabel: "Filter",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="magnify" color={color} size={26} />
+            ),
+          }}
+          name="FilterScreen"
+          component={FilterScreen}
         />
       </Tab.Navigator>
     </NavigationContainer>
