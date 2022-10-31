@@ -5,11 +5,13 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  StyleSheet,
 } from "react-native";
 import Layout from "../components/Layout/Layout";
 import Card from "../components/Card/Card";
 import companies from "../services/company";
 import { useState } from "react";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Company = ({ navigation }) => {
   const renderItem = ({ item }) => {
@@ -19,7 +21,15 @@ const Company = ({ navigation }) => {
         onPress={() => navigation.navigate("CompanyDetails", { company: item })}
         key={item.id}
       >
-        <Card title={item.name} descr="" tag="NO"></Card>
+        <View style={styles.itemList}>
+          <MaterialCommunityIcons
+            name="arrow-right-thin"
+            size={30}
+            color={"#22404c"}
+            style={styles.icon}
+          />
+          <Text style={styles.itemListText}>{item.name}</Text>
+        </View>
       </TouchableOpacity>
     );
   };
@@ -36,5 +46,22 @@ const Company = ({ navigation }) => {
     </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  itemList: {
+    padding: 30,
+    borderBottomColor: "grey",
+    borderBottomWidth: 1,
+    flexDirection: "row",
+    justifyContent: "left",
+    alignItems: "left",
+  },
+  itemListText: {
+    fontSize: 20,
+  },
+  icon: {
+    marginRight: 15,
+  },
+});
 
 export default Company;

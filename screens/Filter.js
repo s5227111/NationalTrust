@@ -5,16 +5,28 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  StyleSheet,
+  Text,
 } from "react-native";
-import { TextInput } from "react-native-paper";
+import { RadioButton, TextInput } from "react-native-paper";
 import Card from "../components/Card/Card";
 import Layout from "../components/Layout/Layout";
 import places from "../services/places";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { AntDesign } from "@expo/vector-icons";
 
 const FilterScreen = ({ navigation }) => {
   const [filter, setFilter] = useState("");
   const [results, setResults] = useState([]);
+  const [petFriendly, setPetFriendly] = useState(false);
+
+  const handlePetFriendly = () => {
+    if (petFriendly === false) {
+      setPetFriendly(true);
+    } else {
+      setPetFriendly(false);
+    }
+  };
 
   useEffect(() => {
     if (filter !== "") {
@@ -45,16 +57,33 @@ const FilterScreen = ({ navigation }) => {
 
   return (
     <Layout>
-      <View>
-        <SafeAreaView>
-          {/* VERIFY MAGNIFY ICON FOR iOS */}
-          <MaterialCommunityIcons name="magnify" color="black" size={26} />
-          <TextInput
-            inlineImageLeft="search_icon"
-            value={filter}
-            onChangeText={setFilter}
+      <View style={styles.inputSection}>
+        <TextInput
+          value={filter}
+          onChangeText={setFilter}
+          style={styles.input}
+        />
+
+        <MaterialCommunityIcons
+          name="magnify"
+          size={30}
+          color={"#22404c"}
+          style={styles.icon}
+        />
+      </View>
+
+      <TouchableOpacity onPress={handlePetFriendly}>
+        <Text>
+          Pet Friendly
+          <RadioButton
+            value={petFriendly}
+            label="Pet Friendly"
+            status={petFriendly === true ? "checked" : "unchecked"}
           />
-        </SafeAreaView>
+        </Text>
+      </TouchableOpacity>
+
+      <View>
         <FlatList
           data={results}
           renderItem={renderItem}
@@ -64,5 +93,31 @@ const FilterScreen = ({ navigation }) => {
     </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  icon: {
+    marginRight: 15,
+    marginLeft: 15,
+  },
+  inputSection: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    paddingHorizontal: 0,
+    height: 67,
+    width: "100%",
+    borderWidth: 2,
+    borderColor: "grey",
+  },
+  input: {
+    flex: 1,
+    fontSize: 20,
+    paddingTop: 0,
+    paddingRight: 10,
+    paddingBottom: 0,
+    backgroundColor: "white",
+  },
+});
 
 export default FilterScreen;

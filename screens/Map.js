@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Layout from "../components/Layout/Layout";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Callout } from "react-native-maps";
 import places from "../services/places";
 
 export default function Map({ navigation }) {
@@ -26,7 +26,7 @@ export default function Map({ navigation }) {
           // .slice(0, 10)
           .map((place) => (
             <Marker
-              onPress={() => navigation.navigate("Details", { place })}
+              // onPress={() => navigation.navigate("Details", { place })}
               key={place.id}
               title={place.title}
               description={place.description}
@@ -34,7 +34,16 @@ export default function Map({ navigation }) {
                 latitude: String(place.location.latitude),
                 longitude: String(place.location.longitude),
               }}
-            />
+            >
+              <Callout tooltip={false}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Details", { place })}
+                >
+                  <Text>{place.title}</Text>
+                  <Text>{place.description}</Text>
+                </TouchableOpacity>
+              </Callout>
+            </Marker>
           ))}
       </MapView>
     </Layout>
