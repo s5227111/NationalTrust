@@ -24,9 +24,13 @@ const Details = ({ route }) => {
           <Text style={styles.title}>{place.title}</Text>
           <Text style={styles.subTitle}>{place.subTitle}</Text>
           <Text style={styles.greenBox}>{place.imageDescription}</Text>
-          <Text style={styles.openingTimeStatus}>
-            {place.openingTimeStatus}
-          </Text>
+          <OpenURLButton
+            url={`https://www.nationaltrust.org.uk/place-pages/${place.id}/pages/opening-times-calendar`}
+            style={styles.openingTimeStatus}
+          >
+            <Text style={styles.buttonOpeningTimes}>Opening times</Text>
+            {/* {place.openingTimeStatus} */}
+          </OpenURLButton>
           <Text style={styles.subTitle}>{place.description}</Text>
           <Text style={styles.subTitle}>{place.activityTagsAsCsv}</Text>
           <OpenURLButton url={place.websiteUrl}>
@@ -105,6 +109,12 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     color: "white",
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+  buttonOpeningTimes: {
+    textAlign: "center",
+    color: "grey",
     fontSize: 15,
     fontWeight: "bold",
   },

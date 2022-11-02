@@ -12,7 +12,9 @@ import MapView, { Marker } from "react-native-maps";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const CompanyDetails = ({ route }) => {
-  const company = route.params.company;
+  // sintax de desestruturacao de objeto
+  const { company } = route.params;
+
   return (
     <Layout>
       <ScrollView>
