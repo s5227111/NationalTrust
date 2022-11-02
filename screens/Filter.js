@@ -8,10 +8,13 @@ import {
   StyleSheet,
   Text,
 } from "react-native";
+// Imports Design Framework
 import { RadioButton, TextInput } from "react-native-paper";
 import Card from "../components/Card/Card";
 import Layout from "../components/Layout/Layout";
 import places from "../services/places";
+import tags from "../services/tags";
+import types from "../services/types";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { AntDesign } from "@expo/vector-icons";
 
@@ -19,6 +22,7 @@ const FilterScreen = ({ navigation }) => {
   const [filter, setFilter] = useState("");
   const [results, setResults] = useState([]);
   const [petFriendly, setPetFriendly] = useState(false);
+  const [tagItem, setTagItem] = useState([]);
 
   const handlePetFriendly = () => {
     if (petFriendly === false) {
@@ -37,6 +41,18 @@ const FilterScreen = ({ navigation }) => {
       setResults([]);
     }
   }, [filter]);
+
+  // tags
+  const selectItem = (item) => {
+    var aux = tagItem;
+    if (tagItem.includes(item)) {
+      delete aux[item];
+      setTagItem(aux);
+    } else {
+      aux.push(item);
+      setTagItem(aux);
+    }
+  };
 
   const renderItem = ({ item }) => {
     return (
@@ -62,6 +78,7 @@ const FilterScreen = ({ navigation }) => {
           value={filter}
           onChangeText={setFilter}
           style={styles.input}
+          placeholder="Type the place name"
         />
 
         <MaterialCommunityIcons
@@ -82,6 +99,22 @@ const FilterScreen = ({ navigation }) => {
           />
         </Text>
       </TouchableOpacity>
+
+      {/* tags */}
+      <View>
+        {tags.map((item) => (
+          <TouchableOpacity onPress={() => selectItem(item)}>
+            <Text>
+              {item}
+              <RadioButton
+                value={item}
+                label={item}
+                status={tagItem.includes(item) ? "checked" : "unchecked"}
+              />
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
 
       <View>
         <FlatList
