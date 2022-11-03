@@ -7,18 +7,17 @@ import {
   Image,
   StyleSheet,
   Text,
+  Modal
 } from "react-native";
 // Imports Design Framework
 import { RadioButton, TextInput } from "react-native-paper";
-import Card from "../components/Card/Card";
-import Layout from "../components/Layout/Layout";
-import places from "../services/places";
-import activities from "../services/activities";
-import types from "../services/types";
+import Card from "../Card/Card";
+import places from "../../services/places"; 
+import activities from "../../services/activities";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { AntDesign } from "@expo/vector-icons";
 
-const FilterScreen = ({ navigation }) => {
+
+const FilterModal = ({ isFilterModalVisible, setIsFilterModalVisible }) => {
   const [filter, setFilter] = useState("");
   const [results, setResults] = useState([]);
   const [petFriendly, setPetFriendly] = useState(false);
@@ -70,22 +69,16 @@ const FilterScreen = ({ navigation }) => {
   };
 
   return (
-    <Layout>
-      <View style={styles.inputSection}>
-        <TextInput
-          value={filter}
-          onChangeText={setFilter}
-          style={styles.input}
-          placeholder="Type the place name"
-        />
-
-        <MaterialCommunityIcons
-          name="magnify"
-          size={30}
-          color={"#22404c"}
-          style={styles.icon}
-        />
-      </View>
+    
+    <Modal
+    animationType="slide"
+    transparent={false}
+    visible={isFilterModalVisible}
+    onRequestClose={() => {
+      setIsFilterModalVisible(false);
+    }}
+  >
+    <View style={styles.modalView}>
 
       <TouchableOpacity onPress={handlePetFriendly}>
         <Text>
@@ -121,7 +114,8 @@ const FilterScreen = ({ navigation }) => {
           keyExtractor={(item) => item.id}
         />
       </View>
-    </Layout>
+    </View>
+  </Modal>
   );
 };
 
@@ -149,6 +143,22 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     backgroundColor: "white",
   },
+  modalView: {
+    flex: 1,
+    margin: 20,
+    backgroundColor: "green",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
 });
 
-export default FilterScreen;
+export default FilterModal;
