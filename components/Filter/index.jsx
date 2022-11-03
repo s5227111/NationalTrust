@@ -7,19 +7,22 @@ import {
   Image,
   StyleSheet,
   Text,
-  Modal
+  Modal,
 } from "react-native";
 // Imports Design Framework
 import { RadioButton, TextInput } from "react-native-paper";
 import Card from "../Card/Card";
-import places from "../../services/places"; 
+import places from "../../services/places";
 import activities from "../../services/activities";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-
-const FilterModal = ({ isFilterModalVisible, setIsFilterModalVisible }) => {
+const FilterModal = ({
+  isFilterModalVisible,
+  setIsFilterModalVisible,
+  onApplyFilter,
+}) => {
   const [filter, setFilter] = useState("");
-  const [results, setResults] = useState([]);
+  // const [results, setResults] = useState([]);
   const [petFriendly, setPetFriendly] = useState(false);
   const [activitiesItem, setActivitiesItem] = useState([]);
 
@@ -31,15 +34,15 @@ const FilterModal = ({ isFilterModalVisible, setIsFilterModalVisible }) => {
     }
   };
 
-  useEffect(() => {
-    if (filter !== "") {
-      let content = Object.values(places);
-      let items = content.filter((value) => value.title.includes(filter));
-      setResults(items);
-    } else {
-      setResults([]);
-    }
-  }, [filter]);
+  // useEffect(() => {
+  //   if (filter !== "") {
+  //     let content = Object.values(places);
+  //     let items = content.filter((value) => value.title.includes(filter));
+  //     setResults(items);
+  //   } else {
+  //     setResults([]);
+  //   }
+  // }, [filter]);
 
   // activities
   const selectItem = (item) => {
@@ -51,71 +54,71 @@ const FilterModal = ({ isFilterModalVisible, setIsFilterModalVisible }) => {
     }
   };
 
-  const renderItem = ({ item }) => {
-    return (
-      // Container clickable, button nao permite elementos. Touchable...
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Details", { place: item })}
-        key={item.id}
-      >
-        <Card title={item.title} descr={item.description}>
-          <Image
-            style={{ width: "100%", height: 200 }}
-            source={{ uri: item.imageUrl }}
-          />
-        </Card>
-      </TouchableOpacity>
-    );
-  };
+  // const renderItem = ({ item }) => {
+  //   return (
+  //     // Container clickable, button nao permite elementos. Touchable...
+  //     <TouchableOpacity
+  //       onPress={() => navigation.navigate("Details", { place: item })}
+  //       key={item.id}
+  //     >
+  //       <Card title={item.title} descr={item.description}>
+  //         <Image
+  //           style={{ width: "100%", height: 200 }}
+  //           source={{ uri: item.imageUrl }}
+  //         />
+  //       </Card>
+  //     </TouchableOpacity>
+  //   );
+  // };
 
   return (
-    
     <Modal
-    animationType="slide"
-    transparent={false}
-    visible={isFilterModalVisible}
-    onRequestClose={() => {
-      setIsFilterModalVisible(false);
-    }}
-  >
-    <View style={styles.modalView}>
+      animationType="slide"
+      transparent={false}
+      visible={isFilterModalVisible}
+      onRequestClose={() => {
+        setIsFilterModalVisible(false);
+      }}
+    >
+      <View style={styles.modalView}>
+        <TouchableOpacity onPress={handlePetFriendly}>
+          <Text>
+            Pet Friendly
+            <RadioButton
+              value={petFriendly}
+              label="Pet Friendly"
+              status={petFriendly === true ? "checked" : "unchecked"}
+            />
+          </Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity onPress={handlePetFriendly}>
-        <Text>
-          Pet Friendly
-          <RadioButton
-            value={petFriendly}
-            label="Pet Friendly"
-            status={petFriendly === true ? "checked" : "unchecked"}
-          />
-        </Text>
-      </TouchableOpacity>
-
-      {/* activities */}
-      <View>
-        {activities.map((item) => (
-          <TouchableOpacity key={item.id} onPress={() => selectItem(item)}>
-            <Text>
-              {item}
-              <RadioButton
-                value={item}
-                label={item}
-                status={activitiesItem.includes(item) ? "checked" : "unchecked"}
-              />
-            </Text>
+        {/* activities */}
+        <View>
+          {activities.map((item) => (
+            <TouchableOpacity key={item} onPress={() => selectItem(item)}>
+              <Text>
+                {item}
+                <RadioButton
+                  value={item}
+                  label={item}
+                  status={
+                    activitiesItem.includes(item) ? "checked" : "unchecked"
+                  }
+                />
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        <View>
+          {/* TouchableOpacity eh mais customizavel */}
+          <TouchableOpacity
+            onPress={() => onApplyFilter(petFriendly, activitiesItem)}
+          >
+            <Text>APPLY</Text>
           </TouchableOpacity>
-        ))}
+        </View>
       </View>
-
-      <View>
-        <FlatList
-          data={results}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
-    </View>
-  </Modal>
+    </Modal>
   );
 };
 

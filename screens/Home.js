@@ -17,6 +17,8 @@ import FilterModal from "../components/Filter";
 
 const Home = ({ navigation }) => {
   const [filter, setFilter] = useState("");
+  const [petFriendly, setPetFriendly] = useState(false);
+  const [activitiesItem, setActivitiesItem] = useState([]);
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
   const handleOpenFilterModal = () => {
     setIsFilterModalVisible(true);
@@ -31,7 +33,7 @@ const Home = ({ navigation }) => {
       >
         <Card title={item.title} descr={item.description}>
           <Image
-            style={{ width: "100%", height: 200 }}
+            style={{ width: "100%", height: 100 }}
             source={{ uri: item.imageUrl }}
           />
         </Card>
@@ -39,11 +41,21 @@ const Home = ({ navigation }) => {
     );
   };
 
+  const onApplyFilter = (petFriendly, activitiesItem) => {
+    console.log(petFriendly, activitiesItem);
+    setPetFriendly(petFriendly);
+    setActivitiesItem(activitiesItem);
+    setIsFilterModalVisible(false);
+  };
+
   return (
     <Layout>
       <FilterModal
         isFilterModalVisible={isFilterModalVisible}
         setIsFilterModalVisible={setIsFilterModalVisible}
+        onApplyFilter={(petFriendly, activitiesItem) =>
+          onApplyFilter(petFriendly, activitiesItem)
+        }
       />
       <View style={styles.inputSection}>
         <TextInput
@@ -64,9 +76,22 @@ const Home = ({ navigation }) => {
       {/* ScrollView: sessoes diferentes q preciso scrollar, mais elementos q nao cabem na tela vs 
       FlatList has better performance for Lists (pagination) */}
       <FlatList
-        data={Object.values(places).filter((element) =>
-          element.title.toLowerCase().includes(filter.toLowerCase())
-        )}
+        data={
+          Object.values(places)
+            .filter((element) =>
+              element.title.toLowerCase().includes(filter.toLowerCase())
+            )
+            .filter((itemPlace) =>
+              petFriendly ? itemPlace.petFriendly === true : itemPlace
+            )
+          // .map((itemActivity) => {
+          //   for (let i = 0; i < activitiesItem.length; i++) {
+          //     if (activitiesItem[i].includes(itemActivity.activityTagsAsCsv)) {
+          //       console.log("index", i);
+          //       return true;
+          //     }
+          //   }
+        }
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
