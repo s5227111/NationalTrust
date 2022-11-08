@@ -22,29 +22,27 @@ export default function Map({ navigation }) {
         }}
         style={styles.map}
       >
-        {Object.values(places)
-          // .slice(0, 10)
-          .map((place) => (
-            <Marker
-              // onPress={() => navigation.navigate("Details", { place })}
-              key={place.id}
-              title={place.title}
-              description={place.description}
-              coordinate={{
-                latitude: String(place.location.latitude),
-                longitude: String(place.location.longitude),
-              }}
-            >
-              <Callout tooltip={false}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("Details", { place })}
-                >
-                  <Text>{place.title}</Text>
-                  <Text>{place.description}</Text>
-                </TouchableOpacity>
-              </Callout>
-            </Marker>
-          ))}
+        {Object.values(places).map((place) => (
+          <Marker
+            // onPress={() => navigation.navigate("Details", { place })}
+            key={place.id}
+            title={place.title}
+            description={place.description}
+            coordinate={{
+              latitude: String(place.location.latitude),
+              longitude: String(place.location.longitude),
+            }}
+          >
+            <Callout tooltip={false}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Details", { place })}
+              >
+                <Text>{place.title}</Text>
+                <Text>{place.description}</Text>
+              </TouchableOpacity>
+            </Callout>
+          </Marker>
+        ))}
       </MapView>
     </Layout>
   );

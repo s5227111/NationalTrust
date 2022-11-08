@@ -34,16 +34,6 @@ const FilterModal = ({
     }
   };
 
-  // useEffect(() => {
-  //   if (filter !== "") {
-  //     let content = Object.values(places);
-  //     let items = content.filter((value) => value.title.includes(filter));
-  //     setResults(items);
-  //   } else {
-  //     setResults([]);
-  //   }
-  // }, [filter]);
-
   // activities
   const selectItem = (item) => {
     if (activitiesItem.includes(item)) {
@@ -54,23 +44,6 @@ const FilterModal = ({
     }
   };
 
-  // const renderItem = ({ item }) => {
-  //   return (
-  //     // Container clickable, button nao permite elementos. Touchable...
-  //     <TouchableOpacity
-  //       onPress={() => navigation.navigate("Details", { place: item })}
-  //       key={item.id}
-  //     >
-  //       <Card title={item.title} descr={item.description}>
-  //         <Image
-  //           style={{ width: "100%", height: 200 }}
-  //           source={{ uri: item.imageUrl }}
-  //         />
-  //       </Card>
-  //     </TouchableOpacity>
-  //   );
-  // };
-
   return (
     <Modal
       animationType="slide"
@@ -80,41 +53,50 @@ const FilterModal = ({
         setIsFilterModalVisible(false);
       }}
     >
+      {/* pet friendly */}
       <View style={styles.modalView}>
-        <TouchableOpacity onPress={handlePetFriendly}>
-          <Text>
-            Pet Friendly
-            <RadioButton
-              value={petFriendly}
-              label="Pet Friendly"
-              status={petFriendly === true ? "checked" : "unchecked"}
-            />
-          </Text>
+        <TouchableOpacity
+          onPress={() => setIsFilterModalVisible(false)}
+          style={styles.btnExit}
+        >
+          <Text style={styles.btnExitText}>X</Text>
+        </TouchableOpacity>
+        <Text style={styles.heading}>Filter places</Text>
+        <Text style={styles.subheading}>Suitability:</Text>
+        <TouchableOpacity onPress={handlePetFriendly} style={styles.btnPet}>
+          <Text>Pet Friendly</Text>
+          <RadioButton
+            value={petFriendly}
+            label="Pet Friendly"
+            status={petFriendly === true ? "checked" : "unchecked"}
+          />
         </TouchableOpacity>
 
         {/* activities */}
-        <View>
+        <View style={styles.viewActivities}>
+          <Text style={styles.subheading}>Activities:</Text>
           {activities.map((item) => (
-            <TouchableOpacity key={item} onPress={() => selectItem(item)}>
-              <Text>
-                {item}
-                <RadioButton
-                  value={item}
-                  label={item}
-                  status={
-                    activitiesItem.includes(item) ? "checked" : "unchecked"
-                  }
-                />
-              </Text>
+            <TouchableOpacity
+              key={item}
+              onPress={() => selectItem(item)}
+              style={styles.btnActivity}
+            >
+              <Text>{item}</Text>
+              <RadioButton
+                value={item}
+                label={item}
+                status={activitiesItem.includes(item) ? "checked" : "unchecked"}
+              />
             </TouchableOpacity>
           ))}
         </View>
-        <View>
+        <View style={styles.viewBtnApply}>
           {/* TouchableOpacity eh mais customizavel */}
           <TouchableOpacity
             onPress={() => onApplyFilter(petFriendly, activitiesItem)}
+            style={styles.btnApply}
           >
-            <Text>APPLY</Text>
+            <Text style={styles.btnApplyText}>APPLY</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -149,7 +131,7 @@ const styles = StyleSheet.create({
   modalView: {
     flex: 1,
     margin: 20,
-    backgroundColor: "green",
+    backgroundColor: "#e1e0db",
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
@@ -161,6 +143,62 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  btnPet: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    justifyContent: "space-between",
+  },
+  btnActivity: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  viewActivities: {
+    width: "100%",
+  },
+  heading: {
+    marginTop: 40,
+    marginBottom: 20,
+    alignSelf: "flex-start",
+    fontSize: 22,
+    fontWeight: "bold",
+  },
+  subheading: {
+    marginTop: 20,
+    marginBottom: 20,
+    alignSelf: "flex-start",
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+  viewBtnApply: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
+  btnApply: {
+    backgroundColor: "#051E23",
+    padding: 15,
+    borderRadius: 200,
+    paddingHorizontal: 30,
+  },
+  btnApplyText: {
+    textAlign: "center",
+    color: "white",
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+  btnExit: {
+    backgroundColor: "#87003c",
+    padding: 10,
+    borderRadius: 200,
+    paddingHorizontal: 15,
+    alignSelf: "flex-end",
+  },
+  btnExitText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fff",
   },
 });
 

@@ -6,13 +6,47 @@ import {
   View,
   Button,
 } from "react-native";
+import { useState, useEffect } from "react";
 import Layout from "../components/Layout/Layout";
 import OpenURLButton from "../components/OpenURLButton/OpenURLButton";
 import MapView, { Marker } from "react-native-maps";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+// pegar a key do Weather API
+let KEY = "4afebf9d393081ab2dab09c0c0879c16";
+
 const Details = ({ route }) => {
   const place = route.params.place;
+  const [temperature, setTemperature] = useState("");
+  const [condition, setCondition] = useState("");
+  const [icon, setIcon] = useState("");
+
+  function fetchWeather(lat, lon) {
+    let url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${KEY}&units=metric`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setTemperature(data.main.temp);
+        setCondition(data.weather[0].main);
+        setIcon(data.weather[0].icon);
+      })
+      .catch(function (error) {
+        console.log(error.message);
+        // ADD THIS THROW error
+        throw error;
+      });
+  }
+  useEffect(() => {
+    async function getData() {
+      try {
+        await fetchWeather(place.location.latitude, place.location.longitude);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getData();
+  }, []);
+
   return (
     <Layout>
       <ScrollView>
@@ -23,16 +57,28 @@ const Details = ({ route }) => {
         <View style={styles.box}>
           <Text style={styles.title}>{place.title}</Text>
           <Text style={styles.subTitle}>{place.subTitle}</Text>
-          <Text style={styles.greenBox}>{place.imageDescription}</Text>
           <OpenURLButton
             url={`https://www.nationaltrust.org.uk/place-pages/${place.id}/pages/opening-times-calendar`}
             style={styles.openingTimeStatus}
           >
             <Text style={styles.buttonOpeningTimes}>Opening times</Text>
+
             {/* {place.openingTimeStatus} */}
           </OpenURLButton>
           <Text style={styles.subTitle}>{place.description}</Text>
           <Text style={styles.subTitle}>{place.activityTagsAsCsv}</Text>
+
+          <View style={styles.weather}>
+            <Image
+              source={{
+                uri: `https://openweathermap.org/img/wn/${icon}@2x.png`,
+              }}
+              style={{ width: 100, height: 100 }}
+            ></Image>
+            <Text>{temperature}</Text>
+            <Text>{condition}</Text>
+          </View>
+
           <OpenURLButton url={place.websiteUrl}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>
@@ -71,6 +117,7 @@ const styles = StyleSheet.create({
   map: {
     height: 200,
     width: "100%",
+    borderRadius: 50,
   },
   box: {
     margin: 20,
@@ -80,15 +127,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     color: "grey",
-  },
-  greenBox: {
-    backgroundColor: "#22404c",
-    padding: 20,
-    color: "white",
-    fontWeight: "bold",
-    fontStyle: "italic",
-    fontSize: 20,
-    marginBottom: 20,
   },
   openingTimeStatus: {
     color: "red",
@@ -117,6 +155,13 @@ const styles = StyleSheet.create({
     color: "grey",
     fontSize: 15,
     fontWeight: "bold",
+  },
+  weather: {
+    marginTop: 20,
+    backgroundColor: "rgba(0, 170,180,0.4)",
+    borderRadius: 50,
+    alignItems: "center",
+    textAlign: "center",
   },
 });
 

@@ -1,13 +1,13 @@
 /* Layout component */
 
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import Header from "../Header/Header";
 
 const Layout = ({ children }) => {
   return (
     <SafeAreaView>
       <Header />
-      {children}
+      <View style={{ marginBottom: 240 }}>{children}</View>
     </SafeAreaView>
   );
 };

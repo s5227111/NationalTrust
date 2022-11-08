@@ -64,16 +64,6 @@ export default function App() {
           name="Company"
           component={Company}
         />
-        <Tab.Screen
-          options={{
-            tabBarLabel: "Filter",
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="magnify" color={color} size={26} />
-            ),
-          }}
-          name="FilterScreen"
-          component={FilterScreen}
-        />
       </Tab.Navigator>
     </NavigationContainer>
   );

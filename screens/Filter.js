@@ -59,7 +59,12 @@ const FilterScreen = ({ navigation }) => {
         onPress={() => navigation.navigate("Details", { place: item })}
         key={item.id}
       >
-        <Card title={item.title} descr={item.description}>
+        <Card
+          title={item.title}
+          descr={item.description}
+          lat={item.location.latitude}
+          long={item.location.longitude}
+        >
           <Image
             style={{ width: "100%", height: 200 }}
             source={{ uri: item.imageUrl }}
