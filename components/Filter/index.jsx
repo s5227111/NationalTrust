@@ -69,6 +69,7 @@ const FilterModal = ({
             value={petFriendly}
             label="Pet Friendly"
             status={petFriendly === true ? "checked" : "unchecked"}
+            style={styles.suitabilityText}
           />
         </TouchableOpacity>
 
@@ -199,6 +200,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "#fff",
+  },
+  suitabilityText: {
+    textDecorationStyle: "solid",
   },
 });
 

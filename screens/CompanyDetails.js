@@ -1,14 +1,6 @@
-import {
-  Image,
-  ScrollView,
-  Text,
-  StyleSheet,
-  View,
-  Button,
-} from "react-native";
+import { Image, ScrollView, Text, StyleSheet, View } from "react-native";
 import Layout from "../components/Layout/Layout";
 import OpenURLButton from "../components/OpenURLButton/OpenURLButton";
-import MapView, { Marker } from "react-native-maps";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const CompanyDetails = ({ route }) => {
@@ -23,7 +15,9 @@ const CompanyDetails = ({ route }) => {
           source={{ uri: company.image }}
         />
         <View style={styles.box}>
-          <Text style={styles.title}>{company.title}</Text>
+          <View style={styles.containerTitle}>
+            <Text style={styles.title}>{company.title}</Text>
+          </View>
           <Text style={styles.description}>{company.description}</Text>
 
           <OpenURLButton url="https://www.nationaltrust.org.uk/">
@@ -42,9 +36,14 @@ const CompanyDetails = ({ route }) => {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 5,
+    color: "#e6f1e8",
+  },
+  containerTitle: {
+    backgroundColor: "#44463e",
+    padding: 20,
   },
   box: {
     margin: 20,
@@ -52,6 +51,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 17,
     fontWeight: "bold",
+    marginTop: 20,
     marginBottom: 20,
     color: "grey",
   },

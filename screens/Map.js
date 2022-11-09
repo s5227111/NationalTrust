@@ -29,8 +29,8 @@ export default function Map({ navigation }) {
             title={place.title}
             description={place.description}
             coordinate={{
-              latitude: String(place.location.latitude),
-              longitude: String(place.location.longitude),
+              latitude: Number(place.location.latitude),
+              longitude: Number(place.location.longitude),
             }}
           >
             <Callout tooltip={false}>

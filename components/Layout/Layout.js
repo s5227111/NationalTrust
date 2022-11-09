@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   return (
     <SafeAreaView>
       <Header />
-      <View style={{ marginBottom: 240 }}>{children}</View>
+      <View>{children}</View>
     </SafeAreaView>
   );
 };

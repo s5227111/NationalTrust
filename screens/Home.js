@@ -102,45 +102,47 @@ const Home = ({ navigation }) => {
   }
 
   return (
-    <Layout>
-      <FilterModal
-        isFilterModalVisible={isFilterModalVisible}
-        setIsFilterModalVisible={setIsFilterModalVisible}
-        onApplyFilter={(petFriendly, activitiesItem) =>
-          onApplyFilter(petFriendly, activitiesItem)
-        }
-      />
-      <View style={styles.inputSection}>
-        <TextInput
-          value={filter}
-          onChangeText={setFilter}
-          style={styles.input}
-          placeholder="Type the place name"
-          theme={{
-            colors: {
-              primary: "#8A8D8F",
-              underlineColor: "transparent",
-            },
-          }}
+    <View style={{ marginBottom: 360 }}>
+      <Layout>
+        <FilterModal
+          isFilterModalVisible={isFilterModalVisible}
+          setIsFilterModalVisible={setIsFilterModalVisible}
+          onApplyFilter={(petFriendly, activitiesItem) =>
+            onApplyFilter(petFriendly, activitiesItem)
+          }
         />
-        <TouchableOpacity onPress={handleOpenFilterModal}>
-          <MaterialCommunityIcons
-            name="filter"
-            size={30}
-            color={"#22404c"}
-            style={styles.icon}
+        <View style={styles.inputSection}>
+          <TextInput
+            value={filter}
+            onChangeText={setFilter}
+            style={styles.input}
+            placeholder="Type the place name"
+            theme={{
+              colors: {
+                primary: "#8A8D8F",
+                underlineColor: "transparent",
+              },
+            }}
           />
-        </TouchableOpacity>
-      </View>
-      {/* ScrollView: sessoes diferentes q preciso scrollar, mais elementos q nao cabem na tela vs 
+          <TouchableOpacity onPress={handleOpenFilterModal}>
+            <MaterialCommunityIcons
+              name="filter"
+              size={30}
+              color={"#22404c"}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
+        {/* ScrollView: sessoes diferentes q preciso scrollar, mais elementos q nao cabem na tela vs 
       FlatList has better performance for Lists (pagination) */}
-      <FlatList
-        numColumns="2"
-        data={createRows(filterItems(), 2)}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </Layout>
+        <FlatList
+          numColumns="2"
+          data={createRows(filterItems(), 2)}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      </Layout>
+    </View>
   );
 };
 
