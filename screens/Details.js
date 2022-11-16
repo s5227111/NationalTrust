@@ -54,38 +54,46 @@ const Details = ({ route }) => {
           style={{ width: "100%", height: 200 }}
           source={{ uri: place.imageUrl }}
         />
-        <View style={styles.box}>
-          <Text style={styles.title}>{place.title}</Text>
-          <Text style={styles.subTitle}>{place.subTitle}</Text>
-          <OpenURLButton
-            url={`https://www.nationaltrust.org.uk/place-pages/${place.id}/pages/opening-times-calendar`}
-            style={styles.openingTimeStatus}
-          >
-            <Text style={styles.buttonOpeningTimes}>Opening times</Text>
-
-            {/* {place.openingTimeStatus} */}
-          </OpenURLButton>
-          <Text style={styles.subTitle}>{place.description}</Text>
-          <Text style={styles.subTitle}>{place.activityTagsAsCsv}</Text>
+        <View style={styles.boxRight}>
+          <View style={styles.boxTitle}>
+            <Text style={styles.title}>{place.title}</Text>
+            <Text style={styles.subTitle}>{place.subTitle}</Text>
+            <OpenURLButton url={place.websiteUrl}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>
+                  Website <Icon name="external-link" />
+                </Text>
+              </View>
+            </OpenURLButton>
+          </View>
 
           <View style={styles.weather}>
             <Image
               source={{
                 uri: `https://openweathermap.org/img/wn/${icon}@2x.png`,
               }}
-              style={{ width: 100, height: 100 }}
+              style={{ width: 80, height: 80 }}
             ></Image>
-            <Text>{temperature}</Text>
+            <Text>{Math.round(parseFloat(temperature))} ºC</Text>
             <Text>{condition}</Text>
           </View>
+        </View>
 
-          <OpenURLButton url={place.websiteUrl}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>
-                Website <Icon name="external-link" />
-              </Text>
-            </View>
+        <View style={styles.box}>
+          <OpenURLButton
+            url={`https://www.nationaltrust.org.uk/place-pages/${place.id}/pages/opening-times-calendar`}
+          >
+            <Text style={styles.buttonOpeningTimes}>
+              Opening times <Icon name="external-link" />
+            </Text>
+
+            {/* {place.openingTimeStatus} */}
           </OpenURLButton>
+          <Text style={styles.description}>{place.description}</Text>
+          <Text style={styles.subTitle}>
+            Suitability: {place.activityTagsAsCsv}
+          </Text>
+
           {/* location/ mapinha (lat, long) */}
           <MapView
             initialRegion={{
@@ -116,11 +124,18 @@ const styles = StyleSheet.create({
   },
   map: {
     height: 200,
-    width: "100%",
+    width: "90%",
     borderRadius: 50,
   },
   box: {
     margin: 20,
+    width: "100%",
+    flexBasis: 0,
+    flexGrow: 1,
+    position: "relative",
+  },
+  boxTitle: {
+    width: "70%",
   },
   subTitle: {
     fontSize: 17,
@@ -128,18 +143,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: "grey",
   },
-  openingTimeStatus: {
-    color: "red",
+  description: {
     fontSize: 17,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 20,
+    color: "#44463e",
   },
   button: {
     backgroundColor: "#051E23",
-    padding: 15,
+    padding: 8,
     marginBottom: 20,
     width: "50%",
-    marginLeft: "25%",
     borderRadius: 200,
     flex: 0.3,
     display: "block",
@@ -155,13 +169,23 @@ const styles = StyleSheet.create({
     color: "grey",
     fontSize: 15,
     fontWeight: "bold",
+    marginBottom: 20,
+    alignSelf: "flex-start",
+    textDecorationLine: "underline",
   },
   weather: {
-    marginTop: 20,
-    backgroundColor: "rgba(0, 170,180,0.4)",
+    backgroundColor: "#00aab4",
     borderRadius: 50,
     alignItems: "center",
     textAlign: "center",
+    paddingBottom: 10,
+    width: "30%",
+  },
+  boxRight: {
+    flexDirection: "row",
+    width: "100%",
+    flex: 1,
+    padding: 20,
   },
 });
 

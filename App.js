@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -6,11 +5,10 @@ import Home from "./screens/Home";
 import Map from "./screens/Map";
 import Details from "./screens/Details";
 import CompanyDetails from "./screens/CompanyDetails";
-import FilterScreen from "./screens/Filter";
-import Header from "./components/Header/Header";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Company from "./screens/Company";
+import { useFonts } from "expo-font";
 
 const Tab = createMaterialBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -26,6 +24,10 @@ function HomeStackScreen() {
 }
 
 export default function App() {
+  // const [fontsLoaded] = useFonts({
+  //   "National-Trust": require("./assets/fonts/Darby-Light-Regular.ttf"),
+  // });
+
   return (
     <NavigationContainer>
       <Tab.Navigator

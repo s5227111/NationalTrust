@@ -102,7 +102,7 @@ const Home = ({ navigation }) => {
   }
 
   return (
-    <View style={{ marginBottom: 360 }}>
+    <View style={{ marginBottom: 235 }}>
       <Layout>
         <FilterModal
           isFilterModalVisible={isFilterModalVisible}
