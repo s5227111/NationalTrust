@@ -8,7 +8,6 @@ import CompanyDetails from "./screens/CompanyDetails";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Company from "./screens/Company";
-import { useFonts } from "expo-font";
 
 const Tab = createMaterialBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -24,10 +23,6 @@ function HomeStackScreen() {
 }
 
 export default function App() {
-  // const [fontsLoaded] = useFonts({
-  //   "National-Trust": require("./assets/fonts/Darby-Light-Regular.ttf"),
-  // });
-
   return (
     <NavigationContainer>
       <Tab.Navigator

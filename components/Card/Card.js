@@ -92,11 +92,9 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    // fontWeight: "bold",
     fontSize: 15,
     color: "black",
-    fontFamily: "National-Trust",
-    fontWeight: 700,
+    fontWeight: "bold",
   },
   descr: {
     fontSize: 15,
