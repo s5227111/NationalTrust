@@ -1,13 +1,6 @@
-import {
-  Button,
-  View,
-  Text,
-  Dimensions,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
-import Layout from "../components/Layout/Layout";
+import { Text, Dimensions, StyleSheet, TouchableOpacity } from "react-native";
 import MapView, { Marker, Callout } from "react-native-maps";
+import Layout from "../components/Layout/Layout";
 import places from "../services/places";
 
 export default function Map({ navigation }) {
@@ -24,7 +17,6 @@ export default function Map({ navigation }) {
       >
         {Object.values(places).map((place) => (
           <Marker
-            // onPress={() => navigation.navigate("Details", { place })}
             key={place.id}
             title={place.title}
             description={place.description}

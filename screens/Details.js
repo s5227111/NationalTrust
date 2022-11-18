@@ -1,18 +1,10 @@
-import {
-  Image,
-  ScrollView,
-  Text,
-  StyleSheet,
-  View,
-  Button,
-} from "react-native";
+import { Image, ScrollView, Text, StyleSheet, View } from "react-native";
 import { useState, useEffect } from "react";
+import MapView, { Marker } from "react-native-maps";
 import Layout from "../components/Layout/Layout";
 import OpenURLButton from "../components/OpenURLButton/OpenURLButton";
-import MapView, { Marker } from "react-native-maps";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-// pegar a key do Weather API
 let KEY = "4afebf9d393081ab2dab09c0c0879c16";
 
 const Details = ({ route }) => {
@@ -32,7 +24,6 @@ const Details = ({ route }) => {
       })
       .catch(function (error) {
         console.log(error.message);
-        // ADD THIS THROW error
         throw error;
       });
   }

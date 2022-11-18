@@ -1,25 +1,27 @@
 import {
-  Button,
   View,
-  Text,
   Image,
   TouchableOpacity,
   FlatList,
   StyleSheet,
 } from "react-native";
+
 import { TextInput } from "react-native-paper";
+import { useState } from "react";
+
 import Layout from "../components/Layout/Layout";
 import Card from "../components/Card/Card";
-import places from "../services/places";
-import { useState } from "react";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FilterModal from "../components/Filter";
+import places from "../services/places";
+
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Home = ({ navigation }) => {
   const [filter, setFilter] = useState("");
   const [petFriendly, setPetFriendly] = useState(false);
   const [activitiesItem, setActivitiesItem] = useState([]);
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
+
   const handleOpenFilterModal = () => {
     setIsFilterModalVisible(true);
   };
@@ -29,7 +31,6 @@ const Home = ({ navigation }) => {
       return <View style={{ opacity: 0 }} />;
     }
     return (
-      // Container clickable, button nao permite elementos. Touchable...
       <TouchableOpacity
         style={styles.card}
         onPress={() => navigation.navigate("Details", { place: item })}
@@ -47,7 +48,7 @@ const Home = ({ navigation }) => {
     );
   };
 
-  // Funcao que faz toda a tratativa dos filtros
+  // Handle filter modal
   const filterItems = () => {
     const placesList = Object.values(places);
     const filterByTitle = placesList.filter((element) =>
@@ -86,19 +87,17 @@ const Home = ({ navigation }) => {
   };
 
   function createRows(data, columns) {
-    const rows = Math.floor(data.length / columns); // [A]
-    let lastRowElements = data.length - rows * columns; // [B]
+    const rows = Math.floor(data.length / columns);
+    let lastRowElements = data.length - rows * columns;
     while (lastRowElements !== columns) {
-      // [C]
       data.push({
-        // [D]
         id: `empty-${lastRowElements}`,
         name: `empty-${lastRowElements}`,
         empty: true,
       });
-      lastRowElements += 1; // [E]
+      lastRowElements += 1;
     }
-    return data; // [F]
+    return data;
   }
 
   return (
@@ -133,8 +132,7 @@ const Home = ({ navigation }) => {
             />
           </TouchableOpacity>
         </View>
-        {/* ScrollView: sessoes diferentes q preciso scrollar, mais elementos q nao cabem na tela vs 
-      FlatList has better performance for Lists (pagination) */}
+
         <FlatList
           numColumns="2"
           data={createRows(filterItems(), 2)}

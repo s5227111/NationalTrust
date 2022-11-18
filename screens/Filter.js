@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  SafeAreaView,
   View,
   FlatList,
   TouchableOpacity,
@@ -14,9 +13,7 @@ import Card from "../components/Card/Card";
 import Layout from "../components/Layout/Layout";
 import places from "../services/places";
 import activities from "../services/activities";
-import types from "../services/types";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { AntDesign } from "@expo/vector-icons";
 
 const FilterScreen = ({ navigation }) => {
   const [filter, setFilter] = useState("");

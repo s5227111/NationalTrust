@@ -4,7 +4,6 @@ import OpenURLButton from "../components/OpenURLButton/OpenURLButton";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const CompanyDetails = ({ route }) => {
-  // sintax de desestruturacao de objeto
   const { company } = route.params;
 
   return (
@@ -27,7 +26,6 @@ const CompanyDetails = ({ route }) => {
               </Text>
             </View>
           </OpenURLButton>
-          {/* location/ mapinha (lat, long) */}
         </View>
       </ScrollView>
     </Layout>

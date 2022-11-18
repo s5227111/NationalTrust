@@ -1,20 +1,8 @@
 import { useEffect, useState } from "react";
-import {
-  SafeAreaView,
-  View,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-  Text,
-  Modal,
-} from "react-native";
+import { View, TouchableOpacity, StyleSheet, Text, Modal } from "react-native";
 // Imports Design Framework
 import { RadioButton, TextInput } from "react-native-paper";
-import Card from "../Card/Card";
-import places from "../../services/places";
 import activities from "../../services/activities";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const FilterModal = ({
   isFilterModalVisible,
@@ -22,7 +10,7 @@ const FilterModal = ({
   onApplyFilter,
 }) => {
   const [filter, setFilter] = useState("");
-  // const [results, setResults] = useState([]);
+
   const [petFriendly, setPetFriendly] = useState(false);
   const [activitiesItem, setActivitiesItem] = useState([]);
 
